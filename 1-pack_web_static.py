@@ -5,6 +5,7 @@
 from datetime import datetime
 from fabric.api import local
 
+
 def do_pack():
     """the function that generates the .tgz archive"""
     local("mkdir -p versions")

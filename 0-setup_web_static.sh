@@ -4,14 +4,11 @@
 sudo apt-get update
 sudo apt-get install nginx -y
 #create the necessary folders
-sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 echo "<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset utf-8>
-    <title>Fake html file</title>
   </head>
   <body>
       <p>This is my fake html file</p>
