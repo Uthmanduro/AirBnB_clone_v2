@@ -6,14 +6,14 @@ sudo apt-get install nginx -y
 #create the necessary folders
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
-echo "<!DOCTYPE html>
+echo '<!DOCTYPE html>
 <html lang="en">
   <head>
   </head>
   <body>
       <p>This is my fake html file</p>
   </body>
-</html>" | sudo tee /data/web_static/releases/test/index.html
+</html>' | sudo tee /data/web_static/releases/test/index.html
 #create a symbolic link
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
 #change ownership of the data folder
