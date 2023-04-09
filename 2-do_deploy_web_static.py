@@ -2,13 +2,11 @@
 """distributes an archive to my web servers"""
 
 from fabric.api import *
-from fabric import Connection
 from datetime import datetime
 import os
 
 
 env.hosts = ['54.237.35.136', '18.209.224.238']
-con = Connection()
 
 
 def do_pack():
@@ -36,16 +34,16 @@ def do_deploy(archive_path):
         local(f"put {archive_path} /tmp/")
 
         """uncompress the file"""
-        con.run(f"tar -xzf {remote_temp_path} -C {remote_path}")
+        run(f"tar -xzf {remote_temp_path} -C {remote_path}")
 
         """delete the archive from th web_server"""
-        con.run(f"rm -rf {remote_temp_path}")
+        run(f"rm -rf {remote_temp_path}")
 
         """delete the symbolic link"""
-        con.run(f"rm -rf /data/web_static/current")
+        run(f"rm -rf /data/web_static/current")
 
         """create a new symbolic link"""
-        con.run(f"ln -s {remote_path} /data/web_static/current")
+        run(f"ln -s {remote_path} /data/web_static/current")
 
         return "True"
 
