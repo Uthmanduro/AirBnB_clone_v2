@@ -1,12 +1,22 @@
 #!/usr/bin/python3
-"""distributes an archive to my web servers"""
+"""A fabric script that henerates a .tgz archive from web_static"""
 
-from fabric.api import *
+
 from datetime import datetime
+from fabric.api import *
 import os
 
 
-env.hosts = ['54.237.35.136', '18.209.224.238']
+def do_pack():
+    """the function that generates the .tgz archive"""
+    local("mkdir -p versions")
+    time = datetime.now().strftime("%Y%m%d%H%M%S")
+    path_to_file = "versions/web_static_" + time + ".tgz"
+    result = local("tar -czvf {} web_static".format(path_to_file))
+    if result.return_code == 0:
+        return path_to_file
+    else:
+        return None
 
 
 def do_deploy(archive_path):
@@ -35,8 +45,15 @@ def do_deploy(archive_path):
 
         """create a new symbolic link"""
         run(f"ln -s {remote_path} /data/web_static/current")
-
         return "True"
-
     else:
         return "False"
+
+def deploy():
+    """creates and distributes archive to my web servers"""
+    file_path = do_pack()
+    env.hosts = ['54.237.35.136', '18.209.224.238']
+    result = do_deploy(file_path)
+    return(result)
+
+
