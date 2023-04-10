@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """distributes an archive to my web servers"""
 
-from fabric.api import *
-from datetime import datetime
+from fabric.api import run, put, env
 import os
 
 
@@ -11,6 +10,7 @@ env.hosts = ['54.237.35.136', '18.209.224.238']
 
 def do_deploy(archive_path):
     """the function that distributes the archive"""
+
     if os.path.isfile(archive_path):
         """"get the filename from the path"""
         file_path = os.path.basename(archive_path)
@@ -31,7 +31,7 @@ def do_deploy(archive_path):
         run(f"rm -rf {remote_path}/web_static")
 
         """delete the symbolic link"""
-        run(f"rm -rf /data/web_static/current")
+        run("rm -rf /data/web_static/current")
 
         """create a new symbolic link"""
         run(f"ln -s {remote_path} /data/web_static/current")
