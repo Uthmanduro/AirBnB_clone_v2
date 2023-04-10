@@ -12,7 +12,7 @@ def do_deploy(archive_path):
     """the function that distributes the archive"""
 
     if os.path.isfile(archive_path):
-        """"get the filename from the path"""
+        """get the filename from the path"""
         file_path = os.path.basename(archive_path)
         file_name = file_path.split(".")[0]
         remote_temp_path = f"/tmp/{file_path}"
@@ -20,21 +20,21 @@ def do_deploy(archive_path):
 
         """upload the file to my server"""
         put(archive_path, "/tmp/")
-        run("mkdir -p {}".format(remote_path))
+        run("sudo mkdir -p {}".format(remote_path))
 
         """uncompress the file"""
-        run(f"tar -xzf {remote_temp_path} -C {remote_path}")
+        run(f"sudo tar -xzf {remote_temp_path} -C {remote_path}")
 
         """delete the archive from th web_server"""
-        run(f"rm -rf {remote_temp_path}")
-        run(f"mv {remote_path}/web_static/* {remote_path}")
-        run(f"rm -rf {remote_path}/web_static")
+        run(f"sudo rm -rf {remote_temp_path}")
+        run(f"sudo mv {remote_path}/web_static/* {remote_path}")
+        run(f"sudo rm -rf {remote_path}/web_static")
 
         """delete the symbolic link"""
-        run("rm -rf /data/web_static/current")
+        run("sudo rm -rf /data/web_static/current")
 
         """create a new symbolic link"""
-        run(f"ln -s {remote_path} /data/web_static/current")
+        run(f"sudo ln -s {remote_path} /data/web_static/current")
 
         return "True"
 
