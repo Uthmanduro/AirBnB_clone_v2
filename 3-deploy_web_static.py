@@ -35,11 +35,11 @@ def do_deploy(archive_path):
         put(archive_path, "/tmp/")
         run("sudo mkdir -p {}".format(remote_path))
         run("sudo tar -xzf {} -C {}".format(remote_temp_path, remote_path))
-        run(f"sudo rm -rf {}".format(remote_temp_path))
-        run(f"sudo mv {}/web_static/* {}".format(remote_path, remote_path))
-        run(f"sudo rm -rf {}/web_static".format(remote_path))
+        run("sudo rm -rf {}".format(remote_temp_path))
+        run("sudo mv {}/web_static/* {}".format(remote_path, remote_path))
+        run("sudo rm -rf {}/web_static".format(remote_path))
         run("sudo rm -rf /data/web_static/current")
-        run(f"sudo ln -s {} /data/web_static/current".format(remote_path))
+        run("sudo ln -s {} /data/web_static/current".format(remote_path))
         return True
     else:
         return False
