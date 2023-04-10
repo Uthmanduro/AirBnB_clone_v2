@@ -25,7 +25,10 @@ def do_pack():
 def do_deploy(archive_path):
     """the function that distributes the archivei and decompress it"""
 
-    if os.path.isfile(archive_path):
+    if not os.path.isfile(archive_path):
+        return False
+
+    try:
         """get the filename from the path"""
         file_path = os.path.basename(archive_path)
         file_name = file_path.split(".")[0]
@@ -34,14 +37,14 @@ def do_deploy(archive_path):
 
         put(archive_path, "/tmp/")
         run("sudo mkdir -p {}".format(remote_path))
-        run("sudo tar -xzf {} -C {}".format(remote_temp_path, remote_path))
+        run("sudo tar -xzf {} -C {}/".format(remote_temp_path, remote_path))
         run("sudo rm -rf {}".format(remote_temp_path))
-        run("sudo mv {}/web_static/* {}".format(remote_path, remote_path))
+        run("sudo mv {}/web_static/* {}/".format(remote_path, remote_path))
         run("sudo rm -rf {}/web_static".format(remote_path))
         run("sudo rm -rf /data/web_static/current")
-        run("sudo ln -s {} /data/web_static/current".format(remote_path))
+        run("sudo ln -s {}/ /data/web_static/current".format(remote_path))
         return True
-    else:
+    except Exception as e:
         return False
 
 
