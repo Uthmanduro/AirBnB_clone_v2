@@ -29,7 +29,7 @@ def do_deploy(archive_path):
         """get the filename from the path"""
         file_path = os.path.basename(archive_path)
         file_name = file_path.split(".")[0]
-        remote_temp_path = f"/tmp/{file_path}"
+        remote_temp_path = "/tmp/{}".format(file_path)
         remote_path = "/data/web_static/releases/{}".format(file_name)
 
         put(archive_path, "/tmp/")
