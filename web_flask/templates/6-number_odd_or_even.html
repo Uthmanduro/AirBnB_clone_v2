@@ -3,12 +3,11 @@
     <HEAD>
         <TITLE>HBNB</TITLE>
     </HEAD>
-    <BODY>
-        <H1>Number: {%+ if n is odd -%}
-				{{ n }} is odd
-			{%- else -%}
-				{{ n }} is even
-			{%- endif -%}
-		</H1>
+    <BODY>{%+ if n is odd -%}
+        <H1>Number: {{ n }} is odd</H1>
+            {%- else -%}
+        <H1>Number: {{ n }} is even</H1>
+        {%- endif -%}
     </BODY>
 </HTML>
+

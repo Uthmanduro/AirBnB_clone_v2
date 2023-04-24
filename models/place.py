@@ -52,7 +52,6 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
-    if storage_type != "db":
         @property
         def reviews(self):
             """returns the list of Review
