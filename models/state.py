@@ -16,11 +16,6 @@ class State(BaseModel, Base):
     else:
         name = ""
 
-    def __init__(self, *args, **kwargs):
-        """initializes state"""
-        super().__init__(*args, **kwargs)
-
-    if storage_type != "db":
         @property
         def cities(self):
             """returns the list of City instances with state_id
@@ -33,3 +28,7 @@ class State(BaseModel, Base):
                 if cty.state_id == self.id:
                     list_city.append(cty)
             return list_city
+
+    def __init__(self, *args, **kwargs):
+        """initializes state"""
+        super().__init__(*args, **kwargs)

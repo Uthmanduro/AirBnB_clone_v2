@@ -9,12 +9,12 @@ app = Flask(__name__)
 @app.route("/states_list", strict_slashes=False)
 def state_list():
     """displays a list of all state objects in the db"""
-    states = storage.all("State").values()
+    states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
 
 
 @app.teardown_appcontext
-def remove_session(exception):
+def remove_session(exception=None):
     """it removes the current sqlalchemy session"""
     storage.close()
 
